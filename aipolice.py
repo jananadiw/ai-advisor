@@ -13,7 +13,7 @@ page = st.sidebar.radio("Go to", ["Home", "Automated Enforcement Tools",
 
 # Home Page
 if page == "Home":
-    st.title("aipolice: Safety Protocol Implementation for SB-1047 Compliance")
+    st.title("Ai Advisor: Safety Protocol Implementation for SB-1047 Compliance")
     st.write("Welcome to the aipolice app for AI Safety and Compliance.")
     st.write("Use the navigation on the left to access different features.")
 
