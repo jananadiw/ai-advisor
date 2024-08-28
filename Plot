@@ -1,0 +1,49 @@
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+from matplotlib.colors import LinearSegmentedColormap
+
+# Generate data
+criteria = [f'Criteria {i}' for i in range(1, 11)]
+scores = np.random.randint(0, 101, size=10)  # Random scores between 0 and 100
+
+# Reverse the order of criteria to have Criteria 1 at the top
+criteria.reverse()
+scores = scores[::-1]
+
+# Create DataFrame
+df = pd.DataFrame({
+    'Criteria': criteria,
+    'Score': scores
+})
+
+# Create a color map with warmer tones from red to green
+cmap = LinearSegmentedColormap.from_list('warm_score_cmap', ['#D73027', '#FC8D59', '#FFFFBF', '#91CF60', '#1A9850'])
+
+# Normalize scores between 0 and 1 for color mapping
+norm_scores = df['Score'] / 100
+
+# Plot the data
+fig, ax = plt.subplots(figsize=(8, 6))
+bars = ax.barh(df['Criteria'], df['Score'], color=[cmap(norm) for norm in norm_scores])
+
+# Add data labels
+for bar, score in zip(bars, df['Score']):
+    ax.text(bar.get_width() + 1, bar.get_y() + bar.get_height()/2, f'{score}', va='center', fontsize=10)
+
+# Styling
+ax.set_xlabel('Score', fontsize=12)
+ax.set_title('AI Attributes Score', fontsize=14, fontweight='bold')
+ax.set_xlim(0, 100)  # Ensure the x-axis goes from 0 to 100 for consistency
+
+# Add gridlines for better readability
+ax.grid(True, axis='x', linestyle='--', alpha=0.6)
+
+# Remove spines for a cleaner look
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
+
+# Show the plot
+plt.show()
+
+
